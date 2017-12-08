@@ -1,6 +1,6 @@
 machine:
   xcode:
-    version: 8.3.3
+    version: 9.0
   environment:
     PATH: '$PATH:$HOME/node/node-v4.4.3-darwin-x64/bin'
 
