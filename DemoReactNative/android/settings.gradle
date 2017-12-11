@@ -1,3 +1,5 @@
 rootProject.name = 'DemoReactNative'
+include ':rollbar-react-native'
+project(':rollbar-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/rollbar-react-native/android')
 
 include ':app'
