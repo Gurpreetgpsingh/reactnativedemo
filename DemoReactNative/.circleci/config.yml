@@ -21,11 +21,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-  test:
-  pre:
-    - npm start
-    - set -o pipefail && xcodebuild -project 'DemoReactNative/ios/DemoReactNative.xcodeproj' -scheme 'DemoReactNative-tvOS' clean build test -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=latest' CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= | tee $CIRCLE_ARTIFACTS/xcode_raw.log | xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/xcode/results.xml
-    - npm test
+  
 
 workflows:
   version: 2
