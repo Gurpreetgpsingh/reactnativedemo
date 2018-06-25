@@ -7,18 +7,24 @@ jobs:
       - image: circleci/node:9.2.1    
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install npm wee
+          name: Install node_modules with npm
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+      - run:
+          name: Set Ruby Version
+          command:  echo "ruby-2.4.2" > ~/.ruby-version
+      - run: sudo gem install bundler 
+      - run: sudo bundle install
+      - run: bash -c 'echo -e ".bashrc\n.bash_profile\n.zshrc\n.config/fish/config.fish" | while read f; do if [ -f $HOME/$f ]; then echo -e "export LC_ALL=en_US.UTF-8\nexport LANG=en_US.UTF-8" >> $HOME/$f; fi; done'
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane dev
   android:
     working_directory: ~/reactnativedemo/android
     docker:
